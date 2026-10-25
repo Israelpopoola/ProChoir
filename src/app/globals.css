@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f7f5f2;
+  --surface: #ffffff;
+  --surface-2: #f0ece6;
+  --text: #1c1917;
+  --muted: #78716c;
+  --border: #e7e2da;
+  --accent: #6d28d9;
+  --accent-soft: #ede9fe;
+  --accent-fg: #ffffff;
+  --danger: #b91c1c;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f0d14;
+    --surface: #1a1722;
+    --surface-2: #24202f;
+    --text: #f4f2f7;
+    --muted: #a19bab;
+    --border: #2e2939;
+    --accent: #a78bfa;
+    --accent-soft: #2a2140;
+    --accent-fg: #160f26;
+    --danger: #f87171;
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-fg: var(--accent-fg);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-geist-sans);
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Drawer open/close animation */
+.drawer-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 220ms ease;
+}
+.drawer-body[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+.drawer-body > div {
+  overflow: hidden;
+}
+
+.input {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 0.65rem 0.85rem;
+  font-size: 1rem;
+  outline: none;
+}
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-radius: 0.75rem;
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: opacity 150ms, background 150ms;
+}
+.btn:disabled {
+  opacity: 0.5;
+}
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+.btn-secondary {
+  background: var(--surface-2);
+  color: var(--text);
+}
+.btn-danger {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid var(--border);
+}
