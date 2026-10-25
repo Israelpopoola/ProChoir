@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
-  const name = process.env.NEXT_PUBLIC_CHOIR_NAME || "ProChoir";
+  const name = process.env.NEXT_PUBLIC_CHOIR_NAME || "Citadel Choir";
   return {
-    name,
+    name: `${name} · MFM Dallas Citadel of Testimonies`,
     short_name: name,
     description: "Set lists, lyrics and rehearsal audio for the choir.",
     start_url: "/",

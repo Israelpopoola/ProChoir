@@ -8,7 +8,7 @@ import { MediaList } from "@/components/MediaList";
 import { SetupNotice } from "@/components/SetupNotice";
 import { getSetlist, getSong } from "@/lib/data";
 import { formatServiceDate } from "@/lib/dates";
-import { isConfigured } from "@/lib/supabase";
+import { isServerConfigured as isConfigured } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
 

@@ -76,14 +76,14 @@ create table if not exists public.setlist_songs (
 create index if not exists setlist_songs_setlist_id_idx on public.setlist_songs (setlist_id);
 
 -- ───────────────────────────── Row level security ─────────────────────────────
--- Anyone with the link can read. Only editors can write.
+-- Only editors (MDs) can read or write directly. Choir members read through
+-- the website's server (which checks the choir PIN), never the database itself.
 do $$
 declare t text;
 begin
   foreach t in array array['songs', 'song_media', 'setlists', 'setlist_songs'] loop
     execute format('alter table public.%I enable row level security', t);
     execute format('drop policy if exists "Anyone can read" on public.%I', t);
-    execute format('create policy "Anyone can read" on public.%I for select to anon, authenticated using (true)', t);
     execute format('drop policy if exists "Editors can write" on public.%I', t);
     execute format('create policy "Editors can write" on public.%I for all to authenticated using (public.is_editor()) with check (public.is_editor())', t);
   end loop;

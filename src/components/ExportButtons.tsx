@@ -1,8 +1,5 @@
 "use client";
 
-import { strToU8, zipSync } from "fflate";
-import { useState } from "react";
-import { browserClient } from "@/lib/supabase";
 import { safeFileName, toPresentationText } from "@/lib/lyrics";
 import { DownloadIcon } from "./icons";
 
@@ -32,46 +29,28 @@ export function ExportSongButton({ title, lyrics }: { title: string; lyrics: str
   );
 }
 
-/** A whole set list → zip of numbered .txt files, in order. */
+/** A whole set list → zip of numbered .txt files, in order (built on the server). */
 export function ExportSetlistButton({
-  setlistTitle,
-  date,
-  songIds,
+  setlistId,
+  disabled,
   className = "btn btn-secondary",
 }: {
-  setlistTitle: string;
-  date: string;
-  songIds: string[];
+  setlistId: string;
+  disabled?: boolean;
   className?: string;
 }) {
-  const [busy, setBusy] = useState(false);
-
-  async function run() {
-    setBusy(true);
-    try {
-      const { data, error } = await browserClient().from("songs").select("id, title, lyrics").in("id", songIds);
-      if (error) throw error;
-      const byId = new Map(data.map((s) => [s.id, s]));
-      const files: Record<string, Uint8Array> = {};
-      songIds.forEach((id, i) => {
-        const s = byId.get(id);
-        if (!s) return;
-        const n = String(i + 1).padStart(2, "0");
-        files[`${n} - ${safeFileName(s.title)}.txt`] = strToU8(toPresentationText(s.lyrics));
-      });
-      const zip = zipSync(files);
-      download(new Blob([zip.slice().buffer], { type: "application/zip" }), `${date} ${safeFileName(setlistTitle)}.zip`);
-    } catch (e) {
-      alert(`Couldn't export: ${e instanceof Error ? e.message : e}`);
-    } finally {
-      setBusy(false);
-    }
+  if (disabled) {
+    return (
+      <button type="button" className={className} disabled>
+        <DownloadIcon className="size-4" />
+        Export lyrics
+      </button>
+    );
   }
-
   return (
-    <button type="button" className={className} onClick={run} disabled={busy || songIds.length === 0}>
+    <a href={`/api/export/${setlistId}`} download className={className}>
       <DownloadIcon className="size-4" />
-      {busy ? "Preparing…" : "Export lyrics"}
-    </button>
+      Export lyrics
+    </a>
   );
 }

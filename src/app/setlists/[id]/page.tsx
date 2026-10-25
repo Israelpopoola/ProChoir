@@ -6,7 +6,7 @@ import { SetupNotice } from "@/components/SetupNotice";
 import { ShareButton } from "@/components/ShareButton";
 import { getSetlist } from "@/lib/data";
 import { formatServiceDate } from "@/lib/dates";
-import { isConfigured } from "@/lib/supabase";
+import { isServerConfigured as isConfigured } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
 
@@ -59,9 +59,8 @@ export default async function SetlistPage({ params }: PageProps<"/setlists/[id]"
         </Link>
         <ShareButton path={`/setlists/${setlist.id}`} title={`${setlist.title} – ${longDate}`} />
         <ExportSetlistButton
-          setlistTitle={setlist.title}
-          date={setlist.service_date}
-          songIds={items.map((i) => i.song_id)}
+                setlistId={setlist.id}
+                disabled={items.length === 0}
           className="btn btn-secondary text-sm"
         />
       </div>

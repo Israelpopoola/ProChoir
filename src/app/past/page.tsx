@@ -3,7 +3,7 @@ import { SetupNotice } from "@/components/SetupNotice";
 import { ChevronRight } from "@/components/icons";
 import { getPastSetlists } from "@/lib/data";
 import { formatServiceDate, todayISO } from "@/lib/dates";
-import { isConfigured } from "@/lib/supabase";
+import { isServerConfigured as isConfigured } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Past set lists" };

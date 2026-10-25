@@ -1,7 +1,7 @@
 import { SetupNotice } from "@/components/SetupNotice";
 import { SongSearch } from "@/components/SongSearch";
 import { getSongs } from "@/lib/data";
-import { isConfigured } from "@/lib/supabase";
+import { isServerConfigured as isConfigured } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Songs" };

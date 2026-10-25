@@ -5,11 +5,17 @@ const key =
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ??
   process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
-export const isConfigured = Boolean(url && key);
+// Server-only key: choir pages read through the server, so the database
+// doesn't need to be publicly readable (the PIN can actually protect it).
+const secret = process.env.SUPABASE_SECRET_KEY ?? process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-/** Read-only client for server components (no user session). */
+export const isConfigured = Boolean(url && key);
+export const isServerConfigured = Boolean(isConfigured && secret);
+
+/** Server-side client for choir pages. Never import into client components. */
 export function serverClient(): SupabaseClient {
-  return createClient(url!, key!, {
+  if (!secret) throw new Error("SUPABASE_SECRET_KEY is not set");
+  return createClient(url!, secret, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
 }

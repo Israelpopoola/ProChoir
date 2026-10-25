@@ -5,7 +5,7 @@ import { Lyrics, TextSizeControls } from "@/components/Lyrics";
 import { SetupNotice } from "@/components/SetupNotice";
 import { getSetlist, getSongsByIds } from "@/lib/data";
 import { formatServiceDate } from "@/lib/dates";
-import { isConfigured } from "@/lib/supabase";
+import { isServerConfigured as isConfigured } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Lyrics" };
@@ -23,7 +23,7 @@ export default async function SetlistLyricsPage({ params }: PageProps<"/setlists
         <ChevronLeft className="size-4" /> {setlist.title} · {formatServiceDate(setlist.service_date)}
       </Link>
 
-      <div className="sticky top-[57px] z-10 -mx-4 flex items-center gap-2 overflow-x-auto bg-bg/90 px-4 py-2 backdrop-blur">
+      <div className="sticky top-[69px] z-10 -mx-4 flex items-center gap-2 overflow-x-auto bg-bg/90 px-4 py-2 backdrop-blur">
         <TextSizeControls />
         {items.map((item, i) => (
           <a key={item.id} href={`#song-${i + 1}`} className="shrink-0 rounded-full bg-surface-2 px-3 py-1.5 text-sm font-medium">

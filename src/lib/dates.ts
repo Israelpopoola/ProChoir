@@ -1,6 +1,6 @@
 /** Today's date (YYYY-MM-DD) in the church's time zone. */
 export function todayISO(): string {
-  const timeZone = process.env.CHOIR_TIMEZONE || "UTC";
+  const timeZone = process.env.CHOIR_TIMEZONE || "America/Chicago";
   return new Intl.DateTimeFormat("en-CA", {
     timeZone,
     year: "numeric",

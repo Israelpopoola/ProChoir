@@ -87,9 +87,8 @@ export function SetlistDrawer({ setlist, dateLabel, longDate, badge, defaultOpen
               </Link>
               <ShareButton path={`/setlists/${setlist.id}`} title={`${setlist.title} – ${longDate}`} />
               <ExportSetlistButton
-                setlistTitle={setlist.title}
-                date={setlist.service_date}
-                songIds={items.map((i) => i.song_id)}
+                setlistId={setlist.id}
+                disabled={items.length === 0}
                 className="btn btn-secondary text-sm"
               />
             </div>

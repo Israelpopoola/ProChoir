@@ -9,7 +9,7 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const choirName = process.env.NEXT_PUBLIC_CHOIR_NAME || "ProChoir";
+const choirName = process.env.NEXT_PUBLIC_CHOIR_NAME || "Citadel Choir";
 
 export const metadata: Metadata = {
   title: { default: choirName, template: `%s · ${choirName}` },
@@ -34,8 +34,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full font-sans">
         <header className="sticky top-0 z-20 border-b border-border bg-bg/90 pt-[env(safe-area-inset-top)] backdrop-blur">
           <div className="mx-auto flex max-w-2xl items-center justify-between px-4 py-3">
-            <Link href="/" className="text-lg font-bold tracking-tight">
-              {choirName}
+            <Link href="/" className="leading-tight">
+              <span className="block text-lg font-bold tracking-tight">{choirName}</span>
+              <span className="block text-[11px] font-medium uppercase tracking-wider text-muted">MFM Dallas Citadel of Testimonies</span>
             </Link>
             <Link href="/md" className="text-sm font-medium text-muted hover:text-accent">
               MD

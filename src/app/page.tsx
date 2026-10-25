@@ -3,7 +3,7 @@ import { SetlistDrawer } from "@/components/SetlistDrawer";
 import { SetupNotice } from "@/components/SetupNotice";
 import { getUpcomingSetlists } from "@/lib/data";
 import { formatServiceDate, relativeDay, shortDate, todayISO } from "@/lib/dates";
-import { isConfigured } from "@/lib/supabase";
+import { isServerConfigured as isConfigured } from "@/lib/supabase";
 
 export const dynamic = "force-dynamic";
 
